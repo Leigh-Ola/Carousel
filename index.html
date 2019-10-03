@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Basic Custom carousel library</title>
+	<link type="text/css" rel="stylesheet" href="index.css">
+ 	<link type="text/css" rel="stylesheet" href="Carousel/carousel.css">
+</head>
+<body>
+
+<main>
+	<h1>My Custom carousel</h1>
+	
+	<center><h4>Auto Scroll. Small Width. Count : <b id="count">0</b></h4></center>
+	<div id="sliderAuto">
+	</div>
+	
+	
+	<center><h4>Stretched Images. Deletable</h4></center>
+	<div id="slider1">
+	</div>
+	<button>Remove an Image</button>
+	
+	
+	<center><h4>Padded Images. Black Background</h4></center>
+	<div id="slider2">
+	</div>
+	
+	<aside>
+		<p>Custom Image Slider in native javascript</p>
+		<p>Supports : </p>
+		<ul>
+			<li>Dynamically adding and removing images</li>
+			<li>User interaction</li>
+			<li>Event listeners and callbacks</li>
+		</ul>
+		<p>See code comments for instructions</p>
+	</aside>
+</main>
+
+</body>
+<script type="text/javascript" src="Carousel/carousel.js"></script>
+<script type="text/javascript">
+
+/* First slide */
+var cAuto = new Carousel(["Images/2.jpg","Images/3.jpg","Images/5.jpg","Images/6.jpg"], {
+	el : "#sliderAuto",// REQUIRED. the element to be used as a container for the slide. any existing children will be removed.
+	loop : true, // OPTIONAL. Whether to loop continiously over the images. Only effective when the .next(), .previous or .seek() methods are called. Default is false
+	scroll : 3000, // OPTIONAL. The timeout dor automatic scrolling. Default is 0.
+	eventListeners : {
+		autoScroll : updateCount,
+		manualScroll : updateCount
+	}// OPTIONAL. Event listeners and their callbacks. Currently, only autoScroll and manualScroll are supported.
+});
+
+function updateCount(){
+	cAuto.nextTick(function(){
+		var el = document.getElementById("count");
+		el.innerHTML = (Number(el.innerHTML)+1);
+	});// functions provided as arguments to (new Carousel(...)).nextTick() will be called after the next animation has occurred.
+}
+
+
+
+/* Second slide */
+var c1 = new Carousel(["Images/1.jpg","Images/4.jpg"], {
+	el : "#slider1",// REQUIRED. the element to be used as a container for the slide. any existing children will be removed.
+	stretch : true,// OPTIONAL. whether to stretch the images in this slide. Default is false
+});
+c1.add("Images/3.jpg");//adds a new image to the c1 slide
+c1.add("Images/7.jpg");//adds a new image to the c1 slide
+
+document.querySelector("button").addEventListener("click", function(){
+	c1.remove(0);// removes an image from the c1 slide, the only (optional) argument is for the index at which to remove the image. default is the last image in the slide.
+})//removes first image in c1 slide every time the button is clicked
+
+
+
+/* Third slide */
+var c2 = new Carousel(["Images/2.jpg","Images/5.jpg"], {
+	el : document.getElementById("slider2"),// REQUIRED. can be any element type. if an array of elements is provided, the first one is used.
+	padding : "10%",// OPTIONAL. can be any valid value type (px, em, %, rem etc). If no value type is specified, px is used.
+	fill : "#000"// OPTIONAL. can be any valid color format ("black", rgb etc)
+});
+c2.add("Images/6.jpg",1);//adds a new image to the c2 slide, the second (optional) argument is for the index at which to add the image. default is at the end of the slide.
+
+/*
+INSTRUCTIONS :
+
+	1 - link the page with carousel.js & carousel.css
+
+	2 - create a new slider with "new Carousel()"
+		~ This accepts two arguments:
+			1 - An array of the images you wish to use
+			2 - An object, containing up to 6 values (el, padding, fill, stretch, loop & scroll)
+				~ The "el" value is required. It should be the element you wish to use as a container for the slider. Can be either a string or an element object
+
+	3 - Add or remove images whenever you like, with the .add() & .remove() methods
+
+	4 - Trigger a slide to a new image with the .next(), .previous() & .seek() methods
+		~ The .seek() method accepts 1 argument : the index of the image you want to slide to.
+*/
+</script>
+</html>

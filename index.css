@@ -1,0 +1,23 @@
+body{ padding:0px; margin:0px; }
+
+main{
+	display:block; width:100%; height:100%; box-sizing:border-box; padding:0px 5px;
+}
+main h1{ display:block; text-align:center;}
+main ul{ font-family:Monospace; }
+
+center{ margin-top:70px; }
+
+#sliderAuto, #slider1, #slider2{
+	display:block; width:300px; height:100px; position:relative; left:calc(50% - 150px);
+}
+#sliderAuto{
+	border:2px solid black; border-color:transparent black;
+}
+#slider1, #slider2{
+	box-shadow:5px -5px 10px black, -5px -5px 10px black, 0px -20px 20px #999; height:300px;
+}
+
+button{
+	padding:0.5em 1em; font-size:1.1em;
+}
